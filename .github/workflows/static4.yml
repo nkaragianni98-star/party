@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secret Party Countdown</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+      background: #CFFF04;
+    }
+
+    #countdown, #location, #intro {
+      display: none;
+    }
+
+    #countdown {
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    #location {
+      font-size: 1.8rem;
+      margin-top: 40px;
+      padding: 20px;
+      background: white;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,.15);
+    }
+
+    #passwordBox {
+      margin-top: 40px;
+      font-size: 1.3rem;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #444;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 1rem;
+      margin-left: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
+      display: none;
+    }
+
+    #puzzleBox {
+      background: #CFFF04;
+      padding: 20px;
+      margin: 40px auto;
+      width: 70%;
+      border-radius: 1px;
+      box-shadow: 0 0 10px rgba(0,0,0,.15);
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Secret Party Countdown</h1>
+
+<!-- PASSWORD GATE -->
+<div id="passwordBox">
+  <p>Enter the password to continue:</p>
+  <input type="password" id="passwordInput" />
+  <button onclick="checkPassword()">Enter</button>
+  <div id="error">Incorrect password. Try again.</div>
+</div>
+
+<!-- TREASURE HUNT TEXT UNDER PASSWORD BOX -->
+<div id="puzzleBox">
+  <h2>Treasure Hunt Challenge</h2>
+
+  <p>Your mission is to uncover a three-part password made of:</p>
+  <ul>
+    <li>a beginning word</li>
+    <li>a linking symbol</li>
+    <li>a final word</li>
+  </ul>
+
+  <h3>Clue 1 – First Part</h3>
+  <p>Collect letters in this order:</p>
+  <ul>
+    <li>1st letter of <strong>PIANO</strong></li>
+    <li>2nd letter of <strong>BIRD</strong></li>
+    <li>Last letter of <strong>TREE</strong></li>
+    <li>3rd letter of <strong>ORIGIN</strong></li>
+    <li>4th letter of <strong>GUITAR</strong></li>
+    <li>3rd letter of <strong>CHEESE</strong></li>
+  </ul>
+
+  <h3>Clue 2 – Middle Symbol</h3>
+  <em>
+    I stand where a space cannot be,<br>
+    In usernames, codes and logins you’ll see.<br>
+    I link two words while staying low,<br>
+    Beneath the letters I quietly go.
+  </em>
+
+  <h3>Clue 3 – Final Part</h3>
+  <p>Read the first letter of each line:</p>
+
+<pre style="background:#f3f3f3;padding:10px;border-radius:8px;">
+My secret hides where lines begin,
+Perhaps you’ll see it, if you grin.
+Out on the left, the truth will show,
+Under your nose, in a tidy row.
+Reading straight down, from top to base,
+Don’t look inside, but at the outer place.
+Every first mark of every line,
+Leads you to the final sign.
+All together, that’s the last piece you need.
+</pre>
+
+  <p>Combine the parts as: <strong>firstword + symbol + lastword</strong> (lowercase, no spaces).</p>
+</div>
+
+<!-- REAL CONTENT (HIDDEN UNTIL PASSWORD PASSES) -->
+<p id="intro">The secret party location will appear when the countdown reaches zero.</p>
+
+<div id="countdown">Loading…</div>
+
+<div id="location">
+  🎉 <strong>Secret Party Location:</strong><br>
+  <!-- You can fill this in later -->
+</div>
+
+<script>
+  const correctPassword = "pieite_mpourdela";
+
+  function checkPassword() {
+    const userInput = document.getElementById("passwordInput").value;
+
+    if (userInput === correctPassword) {
+      document.getElementById("passwordBox").style.display = "none";
+      document.getElementById("puzzleBox").style.display = "none";
+      document.getElementById("intro").style.display = "block";
+      document.getElementById("countdown").style.display = "block";
+      startCountdown();
+    } else {
+      document.getElementById("error").style.display = "block";
+    }
+  }
+
+  // Countdown to Friday 20:00 (Greece time)
+  function getTargetTime() {
+    const nowAthens = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Athens" })
+    );
+
+    nowAthens.setDate(nowAthens.getDate() + ((5 - nowAthens.getDay() + 7) % 7));
+    nowAthens.setHours(20, 0, 0, 0);
+    return nowAthens.getTime();
+  }
+
+  function startCountdown() {
+    const countdownEl = document.getElementById("countdown");
+    const locationEl = document.getElementById("location");
+    const targetTime = getTargetTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const remaining = targetTime - now;
+
+      if (remaining <= 0) {
+        clearInterval(interval);
+        countdownEl.innerHTML = "It's time!";
+        locationEl.style.display = "block";
+        return;
+      }
+
+      const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
