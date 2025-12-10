@@ -57,11 +57,76 @@
       margin-top: 10px;
       display: none;
     }
+
+    #puzzleBox {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 70%;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,.15);
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.5rem;
+    }
   </style>
 </head>
 <body>
 
 <h1>Secret Party Countdown</h1>
+
+<!-- TREASURE HUNT PUZZLE -->
+<div id="puzzleBox">
+  <h2>Treasure Hunt Challenge</h2>
+  <p>Your goal is to uncover a hidden password made of:</p>
+  <ul>
+    <li>a first unusual word</li>
+    <li>a linking symbol</li>
+    <li>a final mysterious word</li>
+  </ul>
+  <p>Put them together as: <strong>firstword + symbol + lastword</strong> (all lowercase, no spaces).</p>
+
+  <h3>Clue 1 – Beginning Segment</h3>
+  <p>Pick letters from the following words:</p>
+  <ul>
+    <li>1st from <strong>PIANO</strong></li>
+    <li>2nd from <strong>BIRD</strong></li>
+    <li>last from <strong>TREE</strong></li>
+    <li>3rd from <strong>ORIGIN</strong></li>
+    <li>4th from <strong>GUITAR</strong></li>
+    <li>3rd from <strong>CHEESE</strong></li>
+  </ul>
+  <p>Write them in that exact sequence to form the first part.</p>
+
+  <h3>Clue 2 – The Middle Mark</h3>
+  <p>
+    Riddle:<br>
+    <em>
+      I stand where a space cannot be,<br>
+      In usernames, codes and logins you’ll see.<br>
+      I link two words, though silent and low,<br>
+      Beneath the letters, I quietly go.<br>
+    </em>
+  </p>
+  <p>Identify the symbol described.</p>
+
+  <h3>Clue 3 – Final Segment</h3>
+  <p>
+    Look at the first letter of each line below:
+  </p>
+  <pre style="background:#f3f3f3;padding:10px;border-radius:8px;">
+My secret hides where lines begin,
+Perhaps you’ll see it, if you grin.
+Out on the left, the truth will show,
+Under your nose, in a tidy row.
+Reading straight down, from top to base,
+Don’t look inside, but at the outer place.
+Every first mark of every line,
+Leads you to the final sign.
+All together, that’s the last piece you need.
+  </pre>
+  <p>Combine those initial letters to get the last component.</p>
+</div>
 
 <!-- PASSWORD GATE -->
 <div id="passwordBox">
